@@ -1,5 +1,5 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cauce · Casa de la Cultura de Caucasia</title>
+<title>Casa Cultura · Caucasia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -31,9 +31,15 @@ dialog{border:0;border-radius:14px;max-width:560px;width:calc(100% - 24px);paddi
 .code{font:800 2.6rem 'Bricolage Grotesque';color:var(--flor);letter-spacing:.05em}
 @media(max-width:720px){thead{display:none}table,tbody,tr,td{display:block;border:0}tr{background:#fff;border:1px solid var(--line);border-radius:var(--r);margin-bottom:10px;padding:8px}td{padding:4px 8px}td::before{content:attr(data-l)": ";color:var(--mut)}td.nm{font-weight:800;font-size:1.1rem}td.nm::before{content:""}.dl{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+header.top{position:sticky;top:0;z-index:5}.brand small{display:block;font:600 11px Figtree;color:var(--oro);letter-spacing:.04em}
+#nav a[aria-current]{box-shadow:inset 0 -3px var(--oro)}
+.hero .w{animation:drift 10s ease-in-out infinite alternate}@keyframes drift{to{transform:translateX(-60px)}}
+.prog:nth-child(3n+2){border-color:var(--oro)}.prog:nth-child(3n){border-color:var(--flor)}
+.how{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;counter-reset:s}.how li{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px 16px 16px 56px;position:relative;counter-increment:s}.how li::before{content:counter(s);position:absolute;left:14px;top:14px;width:30px;height:30px;border-radius:50%;background:var(--rio);color:#fff;display:grid;place-items:center;font-weight:800}.how b{display:block}
+footer{background:var(--rio);color:#CFE3DE;padding:24px 20px;text-align:center;font-size:.9rem;margin-top:40px}
 </style></head><body>
-<header class="top"><a class="brand" href="#/">Cauce</a><nav id="nav" aria-label="Principal"></nav></header>
-<div id="app" tabindex="-1"></div><dialog id="dlg"></dialog>
+<header class="top"><a class="brand" href="#/">Casa Cultura<small>Caucasia</small></a><nav id="nav" aria-label="Principal"></nav></header>
+<div id="app" tabindex="-1"></div><footer>Casa Cultura · Caucasia, Antioquia. Sus datos se usan solo para gestionar la participación en los programas.</footer><dialog id="dlg"></dialog>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="config.js"></script>
 <script>
@@ -46,16 +52,17 @@ const toast=m=>{const t=document.createElement('div');t.className='toast';t.setA
 const friendly=e=>{const m=e?.message||'';return m.includes('DUPLICADO')?'Este estudiante ya parece estar registrado. Consulte con la Casa de la Cultura.':m.includes('CONSENTIMIENTO')?'Debe aceptar la autorización del acudiente.':m.includes('FECHA')?'La fecha de nacimiento no es válida.':'No pudimos completar la acción. Revise su conexión e intente de nuevo.'};
 async function init(){const{data}=await sb.auth.getSession();await setUser(data.session?.user);sb.auth.onAuthStateChange((_,s)=>setUser(s?.user).then(route));addEventListener('hashchange',route);route()}
 async function setUser(u){me=null;if(u){const{data}=await sb.from('profiles').select('*').eq('id',u.id).single();me=data}
- $('#nav').innerHTML=me?`<a href="#/panel">Panel</a><a href="#/estudiantes">Estudiantes</a>${me.role==='admin'?'<a href="#/actividades">Actividades</a>':''}<a href="#" id="out">Salir</a>`:`<a href="#/registro">Registrar</a><a href="#/login">Acceso profesores</a>`;
+ $('#nav').innerHTML=me?`<a href="#/panel">Panel</a><a href="#/estudiantes">Estudiantes</a>${me.role==='admin'?'<a href="#/actividades">Actividades</a><a href="#/profesores">Profesores</a>':''}<a href="#" id="out">Salir</a>`:`<a href="#/registro">Registrar</a><a href="#/login">Acceso profesores</a>`;
  const o=$('#out');if(o)o.onclick=async e=>{e.preventDefault();await sb.auth.signOut();location.hash='#/'}}
 async function loadActs(){const{data}=await sb.from('activities').select('*').order('name');acts=data||[]}
-async function route(){const h=location.hash.slice(2)||'';const app=$('#app');await loadActs();
- const priv=['panel','estudiantes','actividades'].includes(h);if(priv&&!me){location.hash='#/login';return}
- if(h==='actividades'&&me.role!=='admin'){location.hash='#/panel';return}
- ({'':landing,registro:regForm,login:login,panel:dash,estudiantes:table,actividades:actView}[h]||landing)();app.focus()}
-function landing(){$('#app').innerHTML=`<section class="hero"><div class="wrap"><h1>Casa de la Cultura de Caucasia</h1><p>Un espacio para aprender, crear y transformar nuestro territorio.</p><div class="row"><a class="btn gold" href="#/registro">Registrar estudiante</a><a class="btn alt" style="color:#fff;border-color:#fff" href="#/login">Acceso profesores</a></div></div>
-<svg viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40C200 0 350 80 600 40S1000 0 1200 40V80H0Z" fill="#F5F7F3"/></svg></section>
-<div class="wrap"><h2>Programas culturales</h2><div class="progs">${acts.filter(a=>a.active).map(a=>`<div class="prog">${esc(a.name)}</div>`).join('')}</div></div>`}
+async function route(){const h=location.hash.slice(2)||'';const app=$('#app');app.innerHTML='<p class="wrap" role="status" style="padding:40px 20px">Cargando…</p>';await loadActs();
+ const priv=['panel','estudiantes','actividades','profesores'].includes(h);if(priv&&!me){location.hash='#/login';return}
+ if(['actividades','profesores'].includes(h)&&me.role!=='admin'){location.hash='#/panel';return}
+ ({'':landing,registro:regForm,login:login,panel:dash,estudiantes:table,actividades:actView,profesores:teachers}[h]||landing)();document.querySelectorAll('#nav a').forEach(a=>a.toggleAttribute('aria-current',a.getAttribute('href')==='#/'+h));app.focus()}
+function landing(){$('#app').innerHTML=`<section class="hero"><div class="wrap"><h1>Casa Cultura<br>de Caucasia</h1><p>Un espacio para aprender, crear y transformar nuestro territorio.</p><div class="row"><a class="btn gold" href="#/registro">Registrar estudiante</a><a class="btn alt" style="color:#fff;border-color:#fff" href="#/login">Acceso profesores</a></div></div>
+<svg viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><path class="w" d="M-100 30C100 0 350 70 600 30S1100 0 1300 30V80H-100Z" fill="#2F7F79" opacity=".55"/><path d="M0 50C200 20 350 80 600 50S1000 20 1200 50V80H0Z" fill="#F5F7F3"/></svg></section>
+<div class="wrap"><h2>Programas culturales</h2><div class="progs">${acts.filter(a=>a.active).map(a=>`<div class="prog">${esc(a.name)}</div>`).join('')}</div>
+<h2>Inscribirse es sencillo</h2><ol class="how"><li><b>Complete el formulario</b>Cinco pasos cortos, también desde el celular.</li><li><b>Guarde su código</b>Es el comprobante de la inscripción.</li><li><b>Le contactamos</b>La Casa Cultura confirma por teléfono.</li></ol></div>`}
 const STEPS=[{t:'El estudiante',f:[['nombres','Nombres'],['apellidos','Apellidos'],['fecha_nacimiento','Fecha de nacimiento','date']]},{t:'Información académica',f:[['colegio','Colegio'],['grado','Grado (ej. 7°)'],['barrio','Barrio o vereda (opcional)','text',1]]},{t:'El acudiente',f:[['acudiente_nombre','Nombre del acudiente'],['acudiente_telefono','Teléfono (WhatsApp si es posible)','tel'],['acudiente_email','Correo (opcional)','email',1]]},{t:'Actividad cultural',f:[['activity_id','Programa','select']]},{t:'Confirmación',f:[]}];
 function regForm(){let s=0,d={};const app=$('#app');
  const val=(k,v,opt)=>{v=(v||'').trim();if(!v)return opt?'':'Este campo es obligatorio.';
@@ -103,5 +110,8 @@ function profile(id,edit){const x=students.find(s=>s.id===id),dg=$('#dlg');
 function actView(){$('#app').innerHTML=`<main class="wrap" style="max-width:560px"><h2>Actividades</h2><div class="card">${acts.map(a=>`<p><label style="display:flex;gap:10px;font-weight:400;margin:0"><input type="checkbox" style="width:24px;min-height:24px" data-id="${a.id}" ${a.active?'checked':''}>${esc(a.name)}</label></p>`).join('')}<label for="na">Nueva actividad</label><input id="na"><div class="row"><button class="btn" id="add">Agregar actividad</button></div></div></main>`;
  document.querySelectorAll('[data-id]').forEach(c=>c.onchange=async()=>{await sb.from('activities').update({active:c.checked}).eq('id',c.dataset.id);toast('Actividad actualizada')});
  $('#add').onclick=async()=>{const n=$('#na').value.trim();if(!n)return toast('Escriba un nombre.');const{error}=await sb.from('activities').insert({name:n});if(error)return toast('Esa actividad ya existe o no se pudo crear.');await route()}}
+async function teachers(){const[{data:p},{data:at}]=await Promise.all([sb.from('profiles').select('*').eq('role','teacher').order('full_name'),sb.from('activity_teachers').select('*')]);const A=at||[];
+ $('#app').innerHTML=`<main class="wrap" style="max-width:700px"><h2>Profesores</h2><p class="hint">Cree la cuenta en Supabase (Authentication → Users). Aquí le asigna sus actividades.</p>${(p||[]).map(t=>`<div class="card" style="margin-bottom:12px"><h3>${esc(t.full_name)}</h3>${acts.map(a=>`<label style="display:flex;gap:10px;font-weight:400;margin:6px 0"><input type="checkbox" style="width:24px;min-height:24px;flex:none" data-t="${t.id}" data-a="${a.id}" ${A.some(x=>x.teacher_id===t.id&&x.activity_id===a.id)?'checked':''}>${esc(a.name)}</label>`).join('')}</div>`).join('')||'<div class="card">Aún no hay profesores. Cuando cree una cuenta en Supabase aparecerá aquí.</div>'}</main>`;
+ document.querySelectorAll('[data-t]').forEach(c=>c.onchange=async()=>{const k={teacher_id:c.dataset.t,activity_id:c.dataset.a};const{error}=c.checked?await sb.from('activity_teachers').insert(k):await sb.from('activity_teachers').delete().match(k);if(error){c.checked=!c.checked;return toast(friendly(error))}toast('Asignación guardada')})}
 init();
 </script></body></html>
