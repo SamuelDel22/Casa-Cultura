@@ -1,0 +1,107 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cauce · Casa de la Cultura de Caucasia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--rio:#0E3B43;--agua:#2F7F79;--oro:#E3A72F;--hoja:#E4EFD9;--flor:#B3174F;--bg:#F5F7F3;--ink:#16221F;--mut:#55655F;--line:#D5DDD6;--r:10px}
+*{box-sizing:border-box}body{margin:0;font:16px/1.55 Figtree,system-ui,sans-serif;color:var(--ink);background:var(--bg)}
+h1,h2,h3{font-family:'Bricolage Grotesque',Figtree,sans-serif;line-height:1.1;margin:0 0 .5em}
+a{color:var(--agua)}:focus-visible{outline:3px solid var(--oro);outline-offset:2px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:var(--r);border:2px solid var(--rio);background:var(--rio);color:#fff;font:600 16px Figtree;cursor:pointer;text-decoration:none}
+.btn.alt{background:transparent;color:var(--rio)}.btn.gold{background:var(--oro);border-color:var(--oro);color:var(--ink)}.btn.sm{min-height:40px;padding:0 14px}.btn.danger{background:#fff;color:#9B1C1C;border-color:#9B1C1C}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:var(--rio);color:#fff;gap:10px;flex-wrap:wrap}
+header.top a{color:#fff;text-decoration:none;font-weight:600;padding:8px 10px}.brand{font:800 22px 'Bricolage Grotesque'}
+.hero{background:var(--rio);color:#fff;padding:56px 20px 90px;position:relative;overflow:hidden}
+.hero svg{position:absolute;left:0;bottom:-1px;width:100%;height:80px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}.hero h1{font-size:clamp(2.2rem,7vw,4.6rem);max-width:12em;font-weight:800}.hero p{max-width:34em;color:#CFE3DE;font-size:1.15rem}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.progs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;padding:8px 0 48px}.prog{background:var(--hoja);border-radius:var(--r);padding:16px;font-weight:600;border-left:6px solid var(--agua)}
+main{padding:28px 0 60px}.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px}
+label{display:block;font-weight:600;margin:14px 0 4px}input,select{width:100%;min-height:48px;padding:8px 12px;border:2px solid #9AA8A1;border-radius:8px;font:16px Figtree;background:#fff}
+.err{color:#9B1C1C;font-size:.9rem;margin-top:4px}.err::before{content:"⚠ "}.hint{color:var(--mut);font-size:.9rem}
+.bar{height:10px;background:var(--line);border-radius:9px;margin:10px 0 4px}.bar i{display:block;height:100%;background:var(--oro);border-radius:9px;transition:width .3s}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}.stat b{display:block;font:800 2.4rem 'Bricolage Grotesque';color:var(--rio)}
+.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}.ch div.l{display:grid;grid-template-columns:110px 1fr 28px;gap:8px;align-items:center;font-size:.9rem;margin:6px 0}.ch .t{height:12px;background:var(--hoja);border-radius:6px}.ch .t i{display:block;height:100%;background:var(--agua);border-radius:6px}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:12px}.filters input,.filters select{min-height:44px}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:var(--r)}th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}th button{all:unset;cursor:pointer;font-weight:800}tbody tr{cursor:pointer}tbody tr:hover{background:var(--hoja)}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.85rem;font-weight:600;border:1.5px solid}.pill.activo{background:#DDF1E3;color:#14532D;border-color:#14532D}.pill.activo::before{content:"● "}.pill.pendiente{background:#FFF1CC;color:#7A4B00;border-color:#7A4B00}.pill.pendiente::before{content:"◐ "}.pill.inactivo{background:#EEE;color:#444;border-color:#444}.pill.inactivo::before{content:"○ "}
+dialog{border:0;border-radius:14px;max-width:560px;width:calc(100% - 24px);padding:22px}dialog::backdrop{background:#0E3B4399}
+.dl{display:grid;grid-template-columns:130px 1fr;gap:6px 12px}.dl dt{color:var(--mut)}.dl dd{margin:0;font-weight:600}
+.toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:10px;z-index:9}
+.code{font:800 2.6rem 'Bricolage Grotesque';color:var(--flor);letter-spacing:.05em}
+@media(max-width:720px){thead{display:none}table,tbody,tr,td{display:block;border:0}tr{background:#fff;border:1px solid var(--line);border-radius:var(--r);margin-bottom:10px;padding:8px}td{padding:4px 8px}td::before{content:attr(data-l)": ";color:var(--mut)}td.nm{font-weight:800;font-size:1.1rem}td.nm::before{content:""}.dl{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<header class="top"><a class="brand" href="#/">Cauce</a><nav id="nav" aria-label="Principal"></nav></header>
+<div id="app" tabindex="-1"></div><dialog id="dlg"></dialog>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script>
+const CONSENT_TEXT="BORRADOR — texto por definir por la Casa de la Cultura y su asesor legal. Como acudiente, autorizo el tratamiento de los datos del menor para gestionar su participación en los programas, conforme a la política de tratamiento de datos de la institución y la normativa colombiana aplicable.";
+const sb=supabase.createClient(CFG.url,CFG.key);
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let me=null,acts=[],students=[],sort={k:'created_at',d:-1},F={q:'',act:'',col:'',gr:'',st:'',age:''};
+const age=d=>Math.floor((Date.now()-new Date(d))/31557600000);
+const toast=m=>{const t=document.createElement('div');t.className='toast';t.setAttribute('role','status');t.textContent=m;document.body.append(t);setTimeout(()=>t.remove(),3500)};
+const friendly=e=>{const m=e?.message||'';return m.includes('DUPLICADO')?'Este estudiante ya parece estar registrado. Consulte con la Casa de la Cultura.':m.includes('CONSENTIMIENTO')?'Debe aceptar la autorización del acudiente.':m.includes('FECHA')?'La fecha de nacimiento no es válida.':'No pudimos completar la acción. Revise su conexión e intente de nuevo.'};
+async function init(){const{data}=await sb.auth.getSession();await setUser(data.session?.user);sb.auth.onAuthStateChange((_,s)=>setUser(s?.user).then(route));addEventListener('hashchange',route);route()}
+async function setUser(u){me=null;if(u){const{data}=await sb.from('profiles').select('*').eq('id',u.id).single();me=data}
+ $('#nav').innerHTML=me?`<a href="#/panel">Panel</a><a href="#/estudiantes">Estudiantes</a>${me.role==='admin'?'<a href="#/actividades">Actividades</a>':''}<a href="#" id="out">Salir</a>`:`<a href="#/registro">Registrar</a><a href="#/login">Acceso profesores</a>`;
+ const o=$('#out');if(o)o.onclick=async e=>{e.preventDefault();await sb.auth.signOut();location.hash='#/'}}
+async function loadActs(){const{data}=await sb.from('activities').select('*').order('name');acts=data||[]}
+async function route(){const h=location.hash.slice(2)||'';const app=$('#app');await loadActs();
+ const priv=['panel','estudiantes','actividades'].includes(h);if(priv&&!me){location.hash='#/login';return}
+ if(h==='actividades'&&me.role!=='admin'){location.hash='#/panel';return}
+ ({'':landing,registro:regForm,login:login,panel:dash,estudiantes:table,actividades:actView}[h]||landing)();app.focus()}
+function landing(){$('#app').innerHTML=`<section class="hero"><div class="wrap"><h1>Casa de la Cultura de Caucasia</h1><p>Un espacio para aprender, crear y transformar nuestro territorio.</p><div class="row"><a class="btn gold" href="#/registro">Registrar estudiante</a><a class="btn alt" style="color:#fff;border-color:#fff" href="#/login">Acceso profesores</a></div></div>
+<svg viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40C200 0 350 80 600 40S1000 0 1200 40V80H0Z" fill="#F5F7F3"/></svg></section>
+<div class="wrap"><h2>Programas culturales</h2><div class="progs">${acts.filter(a=>a.active).map(a=>`<div class="prog">${esc(a.name)}</div>`).join('')}</div></div>`}
+const STEPS=[{t:'El estudiante',f:[['nombres','Nombres'],['apellidos','Apellidos'],['fecha_nacimiento','Fecha de nacimiento','date']]},{t:'Información académica',f:[['colegio','Colegio'],['grado','Grado (ej. 7°)'],['barrio','Barrio o vereda (opcional)','text',1]]},{t:'El acudiente',f:[['acudiente_nombre','Nombre del acudiente'],['acudiente_telefono','Teléfono (WhatsApp si es posible)','tel'],['acudiente_email','Correo (opcional)','email',1]]},{t:'Actividad cultural',f:[['activity_id','Programa','select']]},{t:'Confirmación',f:[]}];
+function regForm(){let s=0,d={};const app=$('#app');
+ const val=(k,v,opt)=>{v=(v||'').trim();if(!v)return opt?'':'Este campo es obligatorio.';
+  if(k==='fecha_nacimiento'){const a=age(v);if(isNaN(a)||a<3||a>25)return 'Ingrese una fecha válida (el estudiante debe tener entre 3 y 25 años).'}
+  if(k==='acudiente_telefono'&&!/^\+?\d{7,13}$/.test(v.replace(/[\s-]/g,'')))return 'Escriba un teléfono válido, solo números (ej. 3001234567).';
+  if(k==='acudiente_email'&&!/^\S+@\S+\.\S+$/.test(v))return 'Escriba un correo válido, como nombre@correo.com.';return ''};
+ const draw=()=>{const st=STEPS[s];app.innerHTML=`<main class="wrap" style="max-width:560px"><div class="card"><p class="hint">Paso ${s+1} de ${STEPS.length}: ${st.t}</p><div class="bar" role="progressbar" aria-valuenow="${s+1}" aria-valuemin="1" aria-valuemax="5"><i style="width:${(s+1)*20}%"></i></div><h2>${st.t}</h2><div id="f">${st.f.map(([k,l,ty,o])=>`<label for="${k}">${l}</label>`+(ty==='select'?`<select id="${k}"><option value="">Seleccione…</option>${acts.filter(a=>a.active).map(a=>`<option value="${a.id}" ${d[k]===a.id?'selected':''}>${esc(a.name)}</option>`).join('')}</select>`:`<input id="${k}" type="${ty||'text'}" value="${esc(d[k])}" ${ty==='tel'?'inputmode="tel"':''} autocomplete="off">`)+`<div class="err" hidden id="e_${k}"></div>`).join('')}
+ ${s===4?`<dl class="dl"><dt>Estudiante</dt><dd>${esc(d.nombres)} ${esc(d.apellidos)}</dd><dt>Colegio</dt><dd>${esc(d.colegio)} · ${esc(d.grado)}</dd><dt>Acudiente</dt><dd>${esc(d.acudiente_nombre)}</dd><dt>Programa</dt><dd>${esc(acts.find(a=>a.id===d.activity_id)?.name)}</dd></dl><label style="display:flex;gap:10px;font-weight:400"><input id="cons" type="checkbox" style="width:24px;min-height:24px;flex:none">${esc(CONSENT_TEXT)}</label><div class="err" hidden id="e_cons"></div>`:''}</div>
+ <div class="row">${s?'<button class="btn alt" id="back">Atrás</button>':''}<button class="btn" id="next">${s===4?'Enviar registro':'Continuar'}</button></div></div></main>`;
+  $('#f input,#f select')?.focus();if(s)$('#back').onclick=()=>{s--;draw()};
+  $('#next').onclick=async()=>{let bad=0;for(const[k,,ty,o]of st.f){d[k]=$('#'+k).value;const m=val(k,d[k],o);const e=$('#e_'+k);e.hidden=!m;e.textContent=m;if(m)bad=1}
+   if(s===4){if(!$('#cons').checked){$('#e_cons').hidden=false;$('#e_cons').textContent='Debe aceptar para continuar.';return}
+    $('#next').disabled=true;const{data,error}=await sb.rpc('register_student',{p:{...d,consentimiento:'true'}});
+    if(error){$('#next').disabled=false;toast(friendly(error));return}
+    app.innerHTML=`<main class="wrap" style="max-width:560px"><div class="card"><h2>Registro completado</h2><p>Guarde este código de registro:</p><div class="code">${esc(data)}</div><p>La Casa de la Cultura confirmará la inscripción por teléfono.</p><a class="btn" href="#/">Volver al inicio</a></div></main>`;return}
+   if(!bad){s++;draw()}}};draw()}
+function login(){$('#app').innerHTML=`<main class="wrap" style="max-width:420px"><div class="card"><h2>Acceso profesores</h2><label for="em">Correo</label><input id="em" type="email" autocomplete="username"><label for="pw">Contraseña</label><input id="pw" type="password" autocomplete="current-password"><div class="err" hidden id="le"></div><div class="row"><button class="btn" id="go">Entrar</button></div></div></main>`;
+ $('#go').onclick=async()=>{const{error}=await sb.auth.signInWithPassword({email:$('#em').value.trim(),password:$('#pw').value});if(error){$('#le').hidden=false;$('#le').textContent='Correo o contraseña incorrectos.'}else location.hash='#/panel'}}
+async function loadStudents(){const{data,error}=await sb.from('students').select('*,activities(name)');if(error)toast(friendly(error));students=data||[]}
+const bars=(title,m)=>{const e=Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,6),mx=Math.max(1,...e.map(x=>x[1]));return`<div class="card ch"><h3>${title}</h3>${e.map(([k,v])=>`<div class="l"><span>${esc(k)}</span><span class="t"><i style="width:${v/mx*100}%"></i></span><b>${v}</b></div>`).join('')||'<p class="hint">Aún no hay datos.</p>'}</div>`};
+const cnt=(a,f)=>a.reduce((m,x)=>{const k=f(x)||'—';m[k]=(m[k]||0)+1;return m},{});
+async function dash(){await loadStudents();const s=students,rec=s.filter(x=>Date.now()-new Date(x.created_at)<2592e6).length;
+ $('#app').innerHTML=`<main class="wrap"><h2>Panel</h2><div class="stats"><div class="card stat"><b>${s.length}</b>Estudiantes registrados</div><div class="card stat"><b>${s.filter(x=>x.status==='activo').length}</b>Activos</div><div class="card stat"><b>${new Set(s.map(x=>x.activity_id)).size}</b>Programas</div><div class="card stat"><b>${new Set(s.map(x=>x.colegio.toLowerCase())).size}</b>Colegios</div></div>
+ <div class="charts">${bars('Por actividad',cnt(s,x=>x.activities?.name))}${bars('Por colegio',cnt(s,x=>x.colegio))}${bars('Por edad',cnt(s,x=>age(x.fecha_nacimiento)+' años'))}<div class="card stat"><b>${rec}</b>Nuevos en los últimos 30 días</div></div></main>`}
+const opts=(a,v)=>`<option value="">Todos</option>`+[...new Set(a)].filter(Boolean).sort().map(x=>`<option ${x==v?'selected':''}>${esc(x)}</option>`).join('');
+const view=()=>{const q=F.q.toLowerCase();return students.filter(x=>(!q||[x.nombres,x.apellidos,x.colegio,x.grado,x.acudiente_nombre,x.activities?.name].join(' ').toLowerCase().includes(q))&&(!F.act||x.activities?.name===F.act)&&(!F.col||x.colegio===F.col)&&(!F.gr||x.grado===F.gr)&&(!F.st||x.status===F.st)&&(!F.age||age(x.fecha_nacimiento)==F.age)).sort((a,b)=>{const g=x=>sort.k==='edad'?-new Date(x.fecha_nacimiento):sort.k==='act'?x.activities?.name:x[sort.k];return(g(a)>g(b)?1:-1)*sort.d})};
+async function table(){await loadStudents();const app=$('#app');
+ app.innerHTML=`<main class="wrap"><h2>Estudiantes</h2><div class="filters"><input id="q" type="search" placeholder="Buscar nombre, colegio, acudiente…" aria-label="Buscar" value="${esc(F.q)}"><select id="fa" aria-label="Actividad">${opts(students.map(x=>x.activities?.name),F.act)}</select><select id="fc" aria-label="Colegio">${opts(students.map(x=>x.colegio),F.col)}</select><select id="fg" aria-label="Grado">${opts(students.map(x=>x.grado),F.gr)}</select><select id="fe" aria-label="Edad">${opts(students.map(x=>age(x.fecha_nacimiento)),F.age)}</select><select id="fs" aria-label="Estado">${opts(['activo','pendiente','inactivo'],F.st)}</select></div>
+ ${me.role==='admin'?'<div class="row" style="margin:0 0 12px"><button class="btn sm alt" id="csv">Exportar CSV (abre en Excel)</button></div>':''}<div id="tb"></div></main>`;
+ const bind=[['q','q'],['fa','act'],['fc','col'],['fg','gr'],['fe','age'],['fs','st']];bind.forEach(([i,k])=>$('#'+i).oninput=e=>{F[k]=e.target.value;rows()});if($('#csv'))$('#csv').onclick=csv;rows()}
+function rows(){const v=view(),H=[['nombres','Nombre'],['edad','Edad'],['colegio','Colegio'],['grado','Grado'],['act','Actividad'],['acudiente_nombre','Acudiente'],['status','Estado']];
+ $('#tb').innerHTML=v.length?`<table><thead><tr>${H.map(([k,l])=>`<th scope="col" aria-sort="${sort.k===k?(sort.d>0?'ascending':'descending'):'none'}"><button data-k="${k}">${l}${sort.k===k?(sort.d>0?' ▲':' ▼'):''}</button></th>`).join('')}</tr></thead><tbody>${v.map(x=>`<tr tabindex="0" data-id="${x.id}"><td class="nm">${esc(x.nombres)} ${esc(x.apellidos)}</td><td data-l="Edad">${age(x.fecha_nacimiento)}</td><td data-l="Colegio">${esc(x.colegio)}</td><td data-l="Grado">${esc(x.grado)}</td><td data-l="Actividad">${esc(x.activities?.name)}</td><td data-l="Acudiente">${esc(x.acudiente_nombre)}</td><td><span class="pill ${x.status}">${x.status}</span></td></tr>`).join('')}</tbody></table>`:'<div class="card">No hay estudiantes con estos filtros. Pruebe quitar alguno.</div>';
+ document.querySelectorAll('th button').forEach(b=>b.onclick=()=>{sort={k:b.dataset.k,d:sort.k===b.dataset.k?-sort.d:1};rows()});
+ document.querySelectorAll('tbody tr').forEach(r=>{r.onclick=()=>profile(r.dataset.id);r.onkeydown=e=>{if(e.key==='Enter')profile(r.dataset.id)}})}
+function csv(){const c=['code','nombres','apellidos','fecha_nacimiento','colegio','grado','acudiente_nombre','acudiente_telefono','status'];
+ const t=[c.join(',')].concat(view().map(x=>c.map(k=>'"'+String(x[k]??'').replace(/"/g,'""').replace(/^([=+\-@])/,"'$1")+'"').join(','))).join('\n');
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+t],{type:'text/csv'}));a.download='estudiantes.csv';a.click()}
+function profile(id,edit){const x=students.find(s=>s.id===id),dg=$('#dlg');
+ if(!edit){dg.innerHTML=`<h2>${esc(x.nombres)} ${esc(x.apellidos)}</h2><span class="pill ${x.status}">${x.status}</span><dl class="dl"><dt>Edad</dt><dd>${age(x.fecha_nacimiento)}</dd><dt>Colegio</dt><dd>${esc(x.colegio)}</dd><dt>Grado</dt><dd>${esc(x.grado)}</dd><dt>Barrio/vereda</dt><dd>${esc(x.barrio)||'—'}</dd><dt>Actividad</dt><dd>${esc(x.activities?.name)}</dd><dt>Acudiente</dt><dd>${esc(x.acudiente_nombre)}</dd><dt>Teléfono</dt><dd><a href="tel:${esc(x.acudiente_telefono)}">${esc(x.acudiente_telefono)}</a></dd><dt>Inscripción</dt><dd>${new Date(x.created_at).toLocaleDateString('es-CO')} · ${esc(x.code)}</dd></dl><div class="row"><button class="btn" id="ed">Editar</button>${me.role==='admin'?'<button class="btn danger" id="del">Eliminar</button>':''}<button class="btn alt" id="cl">Cerrar</button></div>`;
+  dg.showModal();$('#cl').onclick=()=>dg.close();$('#ed').onclick=()=>profile(id,1);
+  if($('#del'))$('#del').onclick=async()=>{if(!confirm(`¿Eliminar a ${x.nombres} ${x.apellidos}? Esta acción no se puede deshacer.`))return;const{error}=await sb.from('students').delete().eq('id',id);if(error)return toast(friendly(error));dg.close();toast('Registro eliminado');table()};return}
+ dg.innerHTML=`<h2>Editar estudiante</h2>${['nombres','apellidos','colegio','grado','acudiente_nombre','acudiente_telefono'].map(k=>`<label for="x_${k}">${k.replace('_',' ')}</label><input id="x_${k}" value="${esc(x[k])}">`).join('')}<label for="x_status">Estado</label><select id="x_status">${['activo','pendiente','inactivo'].map(s=>`<option ${s===x.status?'selected':''}>${s}</option>`).join('')}</select><div class="row"><button class="btn" id="sv">Guardar cambios</button><button class="btn alt" id="cn">Cancelar</button></div>`;
+ $('#cn').onclick=()=>profile(id);$('#sv').onclick=async()=>{const u={};for(const k of['nombres','apellidos','colegio','grado','acudiente_nombre','acudiente_telefono']){u[k]=$('#x_'+k).value.trim();if(!u[k])return toast('Complete todos los campos.')}u.status=$('#x_status').value;
+  const{error}=await sb.from('students').update(u).eq('id',id);if(error)return toast(friendly(error));dg.close();toast('Cambios guardados');table()}}
+function actView(){$('#app').innerHTML=`<main class="wrap" style="max-width:560px"><h2>Actividades</h2><div class="card">${acts.map(a=>`<p><label style="display:flex;gap:10px;font-weight:400;margin:0"><input type="checkbox" style="width:24px;min-height:24px" data-id="${a.id}" ${a.active?'checked':''}>${esc(a.name)}</label></p>`).join('')}<label for="na">Nueva actividad</label><input id="na"><div class="row"><button class="btn" id="add">Agregar actividad</button></div></div></main>`;
+ document.querySelectorAll('[data-id]').forEach(c=>c.onchange=async()=>{await sb.from('activities').update({active:c.checked}).eq('id',c.dataset.id);toast('Actividad actualizada')});
+ $('#add').onclick=async()=>{const n=$('#na').value.trim();if(!n)return toast('Escriba un nombre.');const{error}=await sb.from('activities').insert({name:n});if(error)return toast('Esa actividad ya existe o no se pudo crear.');await route()}}
+init();
+</script></body></html>
